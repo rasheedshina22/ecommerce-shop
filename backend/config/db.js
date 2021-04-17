@@ -8,9 +8,9 @@ async function connectDb() {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    console.log(`Mongodb connected: ${conn.connection.host}`);
+    console.log(`Mongodb connected: ${conn.connection.host}`.cyan.underline);
   } catch (error) {
-    console.log(`Error: ${error.message}`);
+    console.log(`Error: ${error.message}`.red.underline.bold);
     process.exit(1);
   }
 }

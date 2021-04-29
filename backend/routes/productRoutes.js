@@ -1,9 +1,17 @@
 import express from 'express';
 const router = express.Router();
 
-import { getProducts, getProduct } from '../controllers/productController';
+import { authenticate, isAdmin } from '../middleware/authMiddleware';
+import {
+  getProducts,
+  getProduct,
+  deleteProduct,
+} from '../controllers/productController';
 
 router.route('/').get(getProducts);
-router.route('/:id').get(getProduct);
+router
+  .route('/:id')
+  .get(getProduct)
+  .delete(authenticate, isAdmin, deleteProduct);
 
 export default router;

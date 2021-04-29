@@ -14,6 +14,9 @@ import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+// import MessagesScreen from './screens/MessagesScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
             <Route path="/payment" component={PaymentScreen} />
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/order/:orderId" component={OrderScreen} />
+            <Route path="/admin/userlist" component={UserListScreen} />
+            <Route path="/admin/user/:id/edit" component={UserEditScreen} />
+            {/* <Route path="/messages" component={MessagesScreen} /> */}
             {/* this means the id is optional when we go to /cart/id and /cart we would see thesame thing */}
             <Route path="/cart/:id?" component={CartScreen} />
             <Route exact path="/" component={HomeScreen} />

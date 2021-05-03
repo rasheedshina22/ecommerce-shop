@@ -8,9 +8,14 @@ import {
   deleteProduct,
   createProduct,
   updateProduct,
+  createProductReview,
 } from '../controllers/productController';
 
 router.route('/').get(getProducts).post(authenticate, isAdmin, createProduct);
+router
+  .route('/:id/reviews')
+  .post(getProducts)
+  .post(authenticate, createProductReview);
 router
   .route('/:id')
   .get(getProduct)

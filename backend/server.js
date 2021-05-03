@@ -8,6 +8,7 @@ import connectDb from './config/db';
 import productRoutes from './routes/productRoutes';
 import userRoutes from './routes/userRoute';
 import orderRoutes from './routes/orderRoutes';
+import uploadRoute from './routes/uploadRoute';
 
 dotenv.config();
 
@@ -15,16 +16,17 @@ connectDb();
 const app = express();
 
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, {
-  cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
-    credentials: true,
-  },
-});
+// const io = require('socket.io')(server, {
+//   cors: {
+//     origin: 'http://localhost:3000',
+//     methods: ['GET', 'POST'],
+//     credentials: true,
+//   },
+// });
 
 //parses json data
 app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.send('API is running');
@@ -33,6 +35,7 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoute);
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
@@ -44,15 +47,15 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-io.on('connection', (socket) => {
-  console.log('connected');
+// io.on('connection', (socket) => {
+//   console.log('connected');
 
-  socket.on('hello', (data) => {
-    console.log(data);
-  });
+//   socket.on('hello', (data) => {
+//     console.log(data);
+//   });
 
-  socket.on('disconnect', () => console.log('disconnected'));
-});
+//   socket.on('disconnect', () => console.log('disconnected'));
+// });
 
 server.listen(
   PORT,

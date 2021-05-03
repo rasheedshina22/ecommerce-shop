@@ -24,4 +24,5 @@ router
   .delete(authenticate, isAdmin, deleteUser)
   .get(authenticate, isAdmin, getUserById)
   .put(authenticate, isAdmin, updateUser);
+
 export default router;

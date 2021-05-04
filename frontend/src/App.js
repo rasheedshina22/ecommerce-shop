@@ -14,7 +14,6 @@ import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
-// import MessagesScreen from './screens/MessagesScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
@@ -48,6 +47,7 @@ function App() {
             {/* this means the id is optional when we go to /cart/id and /cart we would see thesame thing */}
             <Route path="/cart/:id?" component={CartScreen} />
             <Route exact path="/" component={HomeScreen} />
+            <Route exact path="/search/:keyword" component={HomeScreen} />
           </Switch>
         </Container>
       </main>

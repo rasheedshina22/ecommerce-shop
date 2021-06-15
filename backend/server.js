@@ -1,15 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import colors from 'colors';
+import 'colors';
 import { notFound, errorHandler } from './middleware/errorMiddleware';
 import connectDb from './config/db';
-
-//routes
-import productRoutes from './routes/productRoutes';
-import userRoutes from './routes/userRoute';
-import orderRoutes from './routes/orderRoutes';
-import uploadRoute from './routes/uploadRoute';
+import router from './routes';
 
 dotenv.config();
 
@@ -27,10 +22,8 @@ app.get('/', (req, res) => {
   res.send('API is running');
 });
 
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/upload', uploadRoute);
+//api router
+app.use('/api', router);
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)

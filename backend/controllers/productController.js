@@ -5,6 +5,8 @@ import Product from '../models/productModel';
 // @route GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
+  const limit = 2;
+  const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? {
         name: {
@@ -14,8 +16,11 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const products = await Product.find({ ...keyword });
-  res.status(200).json(products);
+  const count = await Product.countDocuments({ ...keyword });
+  const products = await Product.find({ ...keyword })
+    .limit(limit)
+    .skip(limit * (page - 1));
+  res.status(200).json({ products, page, pages: Math.ceil(count / limit) });
 });
 
 // @desc Fecth a product
@@ -69,15 +74,8 @@ const createProduct = asyncHandler(async (req, res) => {
 // @route PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
-  const {
-    name,
-    price,
-    description,
-    image,
-    brand,
-    category,
-    countInStock,
-  } = req.body;
+  const { name, price, description, image, brand, category, countInStock } =
+    req.body;
 
   //i can just do this
   // const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
